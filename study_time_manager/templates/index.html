@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Study Time Manager</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="container">
+    <header class="hero">
+      <div class="eyebrow">MY STUDY NOTE</div>
+      <h1>Study Time Manager <span>📚</span></h1>
+      <p>毎日の小さな積み重ねを、見える形に。</p>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="notice {{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <section class="stats">
+      <article class="stat-card main-stat">
+        <div class="stat-label">今日の勉強時間</div>
+        <div class="stat-number">{{ today_total // 60 }}<small>時間</small> {{ today_total % 60 }}<small>分</small></div>
+        <div class="stat-foot">今日の記録の合計</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-label">今日取り組んだ科目</div>
+        <div class="stat-number">{{ subject_count }}<small>科目</small></div>
+        <div class="stat-foot">今日の学習内容</div>
+      </article>
+      <article class="stat-card">
+        <div class="stat-label">これまでの合計</div>
+        <div class="stat-number">{{ all_total // 60 }}<small>時間</small> {{ all_total % 60 }}<small>分</small></div>
+        <div class="stat-foot">今までの積み重ね</div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div><span class="mini-icon">✍️</span><h2>勉強を記録する</h2></div>
+        <span class="today">{{ today }}</span>
+      </div>
+      <form action="{{ url_for('add_record') }}" method="post" class="record-form">
+        <label>日付<input type="date" name="study_date" value="{{ today }}" required></label>
+        <label>科目名<input type="text" name="subject" placeholder="例：英語、数学、IT" maxlength="60" required></label>
+        <label>勉強時間（分）<input type="number" name="minutes" min="1" max="1440" placeholder="例：60" required></label>
+        <label class="full">勉強した内容（任意）<textarea name="note" rows="3" placeholder="今日勉強したことや気づきをメモしよう"></textarea></label>
+        <button type="submit" class="submit-button">＋ 記録を追加する</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <div><span class="mini-icon">📖</span><h2>勉強の記録</h2></div>
+        <span class="count">{{ records|length }}件</span>
+      </div>
+      {% if records %}
+        <div class="record-list">
+          {% for record in records %}
+            <article class="record">
+              <div class="record-date">{{ record.study_date }}</div>
+              <div class="record-info">
+                <strong>{{ record.subject }}</strong>
+                {% if record.note %}<p>{{ record.note }}</p>{% endif %}
+              </div>
+              <div class="record-time">{{ record.minutes }}<small>分</small></div>
+              <form action="{{ url_for('delete_record', record_id=record.id) }}" method="post" onsubmit="return confirm('この記録を削除しますか？');">
+                <button class="delete-button" type="submit" aria-label="削除">削除</button>
+              </form>
+            </article>
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="empty">
+          <div>🌱</div>
+          <strong>まだ記録がありません</strong>
+          <p>最初の勉強記録を追加してみましょう！</p>
+        </div>
+      {% endif %}
+    </section>
+    <footer>Study Time Manager · 今日の一歩を大切に</footer>
+  </main>
+</body>
+</html>

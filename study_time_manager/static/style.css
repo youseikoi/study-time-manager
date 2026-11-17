@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap');
+:root { --ink:#26352f; --muted:#7b8982; --green:#329875; --pale:#eaf5ef; --line:#e8eee9; }
+* { box-sizing:border-box; }
+body { margin:0; background:#f5f8f5; color:var(--ink); font-family:'DM Sans','Noto Sans JP',sans-serif; }
+.container { width:min(900px, calc(100% - 32px)); margin:42px auto; }
+.hero { padding:12px 4px 26px; }
+.eyebrow { color:var(--green); font-size:11px; font-weight:700; letter-spacing:2px; }
+h1 { margin:9px 0 7px; font-size:clamp(26px,5vw,38px); letter-spacing:-1px; }
+h1 span { font-size:27px; }
+.hero p { margin:0; color:var(--muted); }
+.stats { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:18px; }
+.stat-card,.panel { background:white; border:1px solid var(--line); border-radius:18px; box-shadow:0 5px 22px #294d3810; }
+.stat-card { padding:20px; }
+.main-stat { background:linear-gradient(135deg,#e5f4eb,#f3faf5); }
+.stat-label { color:var(--muted); font-size:13px; }
+.stat-number { margin:12px 0 5px; font-size:clamp(23px,4vw,32px); font-weight:700; white-space:nowrap; }
+.stat-number small { font-size:13px; font-weight:500; margin:0 5px 0 2px; }
+.stat-foot { color:#91a097; font-size:11px; }
+.panel { padding:24px; margin:16px 0; }
+.section-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:20px; }
+.section-heading > div { display:flex; align-items:center; gap:10px; }
+h2 { margin:0; font-size:18px; }
+.mini-icon { font-size:20px; }
+.today,.count { color:var(--muted); font-size:12px; }
+.record-form { display:grid; grid-template-columns:1fr 1.3fr 1fr; gap:16px; }
+label { display:flex; flex-direction:column; gap:7px; font-size:12px; font-weight:600; color:#58675f; }
+input,textarea { width:100%; border:1px solid #dfe8e1; border-radius:10px; padding:12px; font:inherit; font-size:14px; color:var(--ink); background:#fcfdfc; }
+input:focus,textarea:focus { outline:2px solid #b9dfca; border-color:var(--green); }
+.full { grid-column:1/-1; }
+textarea { resize:vertical; }
+.submit-button { grid-column:1/-1; border:0; border-radius:11px; background:var(--green); color:white; padding:14px; font-size:14px; font-weight:700; cursor:pointer; }
+.submit-button:hover { background:#267e60; }
+.record-list { display:flex; flex-direction:column; }
+.record { display:grid; grid-template-columns:100px 1fr auto auto; gap:14px; align-items:center; padding:15px 0; border-top:1px solid var(--line); }
+.record-date { color:var(--muted); font-size:12px; }
+.record-info strong { font-size:14px; }
+.record-info p { margin:4px 0 0; color:var(--muted); font-size:12px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.record-time { color:var(--green); font-size:18px; font-weight:700; white-space:nowrap; }
+.record-time small { font-size:11px; margin-left:3px; }
+.delete-button { border:1px solid #e5eae6; color:#8a9690; background:white; border-radius:8px; padding:7px 10px; cursor:pointer; }
+.delete-button:hover { color:#bd5555; border-color:#e8caca; }
+.empty { text-align:center; padding:30px 10px; color:var(--muted); }
+.empty div { font-size:30px; margin-bottom:10px; }
+.empty strong { color:var(--ink); }
+.empty p { font-size:13px; }
+.notice { padding:12px 15px; border-radius:10px; margin-bottom:12px; font-size:13px; }
+.notice.success { background:#e8f5ed; color:#26734f; }
+.notice.error { background:#fff0ed; color:#a44738; }
+footer { text-align:center; color:#a1ada5; font-size:11px; padding:20px; }
+@media(max-width:650px) {
+  .container { margin:24px auto; }
+  .stats { grid-template-columns:1fr; gap:9px; }
+  .stat-card { padding:16px; }
+  .stat-number { margin:5px 0; }
+  .record-form { grid-template-columns:1fr; }
+  .full,.submit-button { grid-column:auto; }
+  .panel { padding:18px; }
+  .record { grid-template-columns:1fr auto; gap:6px 10px; }
+  .record-date { grid-column:1; }
+  .record-info { grid-column:1; }
+  .record-time { grid-column:2; grid-row:1/3; }
+  .record form { grid-column:2; grid-row:3; justify-self:end; }
+}
